@@ -38,7 +38,7 @@ Note that $I_{test}$ denotes the set of indices used in estimating the model. Mo
 
 ## Elaborations
 ### Postprocessing.m
-** Helper Functions **
+**Helper Functions**
 
 I created some helper function for in-line functional programming. The `iff` function works as an in-line if statement.
 ```matlab
@@ -49,7 +49,7 @@ The curly function allows us to access created cell arrays in-line.
 curly = @(x, varargin) x{varargin{:}};
 ```
 
-** Loading Data **
+**Loading Data**
 
 To allow us to compare the estimations with the actual results, I need to load in the prepared data set `dataArray`. To match the data as used for estimation in R, I drop uncomplete cases and data points after 2020.
 ```matlab
@@ -57,7 +57,7 @@ dataArray = dataArray(~sum(isnan(dataArray{:, :}), 2) > 0, :);
 dataArray = dataArray(dataArray.t < 2021, :);
 ```
 
-** Cross-sectional Format **
+**Cross-sectional Format**
 
 Next, I format the data into a struct. This creates an entry for each firm and stores the `gvkey`, the identifier `status`, and the data for HBART `heter` and BART `homo` with the time variable `t` and the outcome variable `y`.
 ```matlab
@@ -88,7 +88,8 @@ Then, I concatenate the data for each of these groups together.
 x = [unique(dataArray{ismember(dataArray.gvkey, gvkeyBankrupt), test(i).ratio}); unique(dataArray{~ismember(dataArray.gvkey, gvkeyBankrupt), test(i).ratio})];
 ```
 
-** Time-series Format **
+**Time-series Format**
+
 Hereafter, I format the data into a time-series structure, so that I can easily access the data corresponding to each year. Some important lines in this code are the following, which set the status at time `t` to `-1` if the firm is already bankrupt for at least one year.
 ```matlab
 if t == 1
@@ -99,7 +100,7 @@ else
 end
 ```
 
-** ROC curve **
+**ROC curve**
 
 Plotting the ROC curve is not trivial. First, I sort the data on the probability of defaulting and filter out the firms that are already bankrupt.
 ```matlab
@@ -118,7 +119,7 @@ end
 
 This is done identically for the results using the BART model.
 
-** Survival Functions **
+**Survival Functions**
 
 I have plotted survival functions by simply using the median of the posterior distributions of the induced survival functions. Moreover, I have added shaded regions for 50% and 90% interquantile ranges. This was done using the fill function, which takes in an array that outlines the shaded area. So, the array contains first the lower quantiles from left to right, and then the upper quantiles from right to left, exactly tracing the outline of the shape I want to plot.
 ```matlab
@@ -126,7 +127,7 @@ fill([1:21, fliplr(1:21)], [arrayfun(@(t) quantile(t.data.heter_S(ismember(t.dat
 fill([1:21, fliplr(1:21)], [arrayfun(@(t) quantile(t.data.heter_S(ismember(t.data.gvkey, gvkeyBankrupt)), 0.05), panel), fliplr(arrayfun(@(t) quantile(t.data.heter_S(ismember(t.data.gvkey, gvkeyBankrupt)), 0.95), panel))], 'k', 'FaceAlpha', 0.1, 'EdgeColor', 'none')
 ```
 
-** Brier Scores **
+**Brier Scores**
 The Brier scores are the equivalent to the root mean squared error for continuous outcomes for probabilistic forecasts.
 ```matlab
 brierScore.heter = arrayfun(@(t) mean((t.data.heter_p(t.data.status >= 0) - t.data.status(t.data.status >= 0)).^2), panel);
