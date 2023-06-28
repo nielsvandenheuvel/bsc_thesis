@@ -128,6 +128,7 @@ fill([1:21, fliplr(1:21)], [arrayfun(@(t) quantile(t.data.heter_S(ismember(t.dat
 ```
 
 **Brier Scores**
+
 The Brier scores are the equivalent to the root mean squared error for continuous outcomes for probabilistic forecasts.
 ```matlab
 brierScore.heter = arrayfun(@(t) mean((t.data.heter_p(t.data.status >= 0) - t.data.status(t.data.status >= 0)).^2), panel);
