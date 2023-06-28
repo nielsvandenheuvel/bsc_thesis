@@ -1,6 +1,6 @@
 # rbart Package
 The package created for the Pratola, Chipman, and McCulloch (2020) is adapted here for a probit framework. Note that when using `rbart` one should be cautious. For the bankruptcy prediction example you should build this package. Make sure `devtools` are installed and attached by using
-```
+```console
 install.packages("devtools")
 library(devtools)
 ```
