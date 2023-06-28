@@ -34,3 +34,5 @@ Pratola et al. (2020) use several evaluation methods, including root mean square
 | $e$-statistic | Package `energy` |
 | qq-plot | Plots the quantiles from the posterior against 10,000 random uniform draws |
 | H-evidence | Obtains quantiles from the posterior and sorts these on the value of the mean |
+
+Note that $I_{test}$ denotes the set of indices used in estimating the model.
