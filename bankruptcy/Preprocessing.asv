@@ -110,6 +110,7 @@ dropMissingVariables = ["rd_sale", "staff_sale", "adv_sale"];
 
 % Add variables that have more than 4% missing data
 dropMissingVariables = [dropMissingVariables, fracMissing.Properties.VariableNames(fracMissing{:, :} > 0.04)];
+filteredD
 
 % Get the bankrupt firms that have missing data at the year of bankruptcy
 missingBankruptFirms = arrayfun(@(i) iff(i.status == 1, sum(isnan(i.table{size(i.table, 1), ~ismember(i.table.Properties.VariableNames, dropMissingVariables)})), true, 0), filteredData) > 0;
