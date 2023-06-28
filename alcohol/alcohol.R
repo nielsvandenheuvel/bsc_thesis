@@ -1,23 +1,4 @@
-### Preamble #############################
-# Set working directory. By default set working directory to the directory
-# of the source file. If custom directory is set it will override that of the
-# source file.
-custom_dir <- "" # Enter custom directory here
-source_dir <- if (custom_dir == "") dirname(rstudioapi::getSourceEditorContext()$path) else custom_dir
-setwd(source_dir)
-rm(list = c("custom_dir", "source_dir"))
-# Prompt user to clear environment. This is done as a safeguard for accidentally
-# running the 'rm' command for the entire environment. It is prompted for the
-# sake of subsequent usage of the file.
-if (interactive()) {
-  do_clear <- readline(prompt = "Do you want to clear the environment (Y/N): ")
-  if (tolower(do_clear) == "y") {
-    rm(list = ls())
-  } else if (tolower(do_clear) != "n") {
-    rm(do_clear)
-    print("Invalid input on prompt. Command ignored.")
-  }
-}
+
 
 ### Resources #############################
 library(rbart)
