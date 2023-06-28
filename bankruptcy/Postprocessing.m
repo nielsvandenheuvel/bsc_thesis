@@ -79,14 +79,6 @@ for t = 1:length(panel)
                                 "VariableNames", ["gvkey", "status", "heter_p", "heter_S", "homo_p", "homo_S"]);
 end
 
-%% Kaplan-Meier Estimator
-kaplanMeier = table();
-kaplanMeier.t = data(1).heter.t;
-kaplanMeier.p = arrayfun(@(t) sum(t.data.status == 1)/sum(t.data.status >= 0), panel)';
-for t = 1:length(kaplanMeier.t)
-   kaplanMeier.S(t) = prod(1 - kaplanMeier.p(1:t));
-end
-
 %% ROC Curve
 numBankrupt = sum(arrayfun(@(s) sum(panel(s).data.status == 1), 1:length(panel)));
 heter_fracFailed = zeros(101, length(panel));
@@ -183,7 +175,7 @@ xlabel("Year")
 ylabel("Brier score")
 
 
-%% Miscellaneous Figures
+%% Hazard Function
 tiledlayout(1,2, 'TileSpacing', 'compact', 'Padding', 'compact')
 nexttile
 plot(arrayfun(@(t) median(t.data.heter_p(ismember(t.data.gvkey, gvkeyBankrupt)), 'omitnan'), panel), 'o-k', 'MarkerFaceColor', 'w')

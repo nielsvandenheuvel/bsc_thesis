@@ -1,23 +1,5 @@
 ### Preabmle #############################
-# Set working directory. By default set working directory to the directory
-# of the source file. If custom directory is set it will override that of the
-# source file.
-customDir <- "" # Enter custom directory here
-sourceDir <- if (customDir == "") dirname(rstudioapi::getSourceEditorContext()$path) else customDir
-setwd(sourceDir)
-rm(list = c("customDir", "sourceDir"))
-# Prompt user to clear environment. This is done as a safeguard for accidentally
-# running the 'rm' command for the entire environment. It is prompted for the
-# sake of subsequent usage of the file.
-if (interactive()) {
-  doClear <- readline(prompt = "Do you want to clear the environment (Y/N): ")
-  if (tolower(doClear) == "y") {
-    rm(list = ls())
-  } else if (tolower(doClear) != "n") {
-    rm(doClear)
-    print("Invalid input on prompt. Command ignored.")
-  }
-}
+
   
 ### Resources #############################
 library(rbart)
