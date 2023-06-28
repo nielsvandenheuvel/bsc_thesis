@@ -21,3 +21,13 @@ As this is a replication, the same parameters will be used as in Pratola et al. 
 | `overallnu` | $\nu=3$ | Degrees of freedom for the prior of the variance model* |
 | `overallsd` | $\lambda=\sqrt{Q_{0.1}(f_{\chi^2(\nu)})/\nu}$ | Scale parameter for the prior of the variance model* |
 | `pbd` | $(0.7, 0.0)$ | Probability of birth/death for homoscedastic model |
+
+Note that $\bar{y}$ denotes the sample mean of the outcome variable $y$.
+
+* These quantities are still altered in the R packages, as in Pratola et al. (2020) section 3.4.
+
+### Evaluation
+Pratola et al. (2020) use several evaluation methods, including root mean squared error (RMSE), $e$-statistics, qq-plots, and H-evidence plots. For an explanation of these metrics and graphics, please see the original paper. The values for these evaluation metrics and graphics are computed using the proscribed formulas:
+| Metric/Graphic | Formula | Description |
+| --- | --- | --- |
+| RMSE | $\sqrt{} | Average squared deviation of the predicted value form the outcome |
