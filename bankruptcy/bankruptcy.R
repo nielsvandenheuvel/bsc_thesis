@@ -68,8 +68,6 @@ k <- 1 # Prior hyperparameter for mean model
 # Variance prior (3.4; Pratola et al)
 nu <- 3
 lambda <- sqrt(qchisq(0.1, nu)/nu)
-library(LaplacesDemon)
-plot(dinvchisq(seq(0.01, 2, length.out = 100), nu, lambda), type = "l")
 
 ### Model Fitting #############################
 # Heteroscedastic BART
