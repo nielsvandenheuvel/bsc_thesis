@@ -20,6 +20,4 @@ As this is a replication, the same parameters will be used as in Pratola et al. 
 | `k` | $2$ | Prior hyperparameter for the mean model |
 | `overallnu` | $\nu=3$ | Degrees of freedom for the prior of the variance model* |
 | `overallsd` | $\lambda=\sqrt{Q_{0.1}(f_{\chi^2(\nu)})/\nu}$ | Scale parameter for the prior of the variance model* |
-| --- | --- | --- |
 | `pbd` | $(0.7, 0.0)$ | Probability of birth/death for homoscedastic model |
-| --- | --- | --- |
