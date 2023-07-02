@@ -2,13 +2,16 @@
 # This script provides a simulation example for the HBART methodology.
 # It produces evaluation and data plots for the thesis. The DGP is derived
 # from Pratola et al. (2020).
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # Sets working directory to current file directory
 ### Resources #############################
+# remove.packages("rbart") # Remove if previously ran bankrupt.R
+install.packages("rbart")
 library(rbart)
 library(energy)
 source("../qinsamp.R")
 
 # Set if workspace exists already
-workspace_path <- "simulated_example.RData"
+workspace_path <- ""
 # Set if you want to save the workspace after completion
 workspace_save_path <- ""
 

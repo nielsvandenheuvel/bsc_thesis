@@ -2,8 +2,10 @@
 # In this script I run the analysis for the fish catch production example.
 # It generates some evaluation plots for the thesis including H-evidence
 # and predictive qq-plots.
-
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # Sets working directory to current file directory
 ### Resources #############################
+# remove.packages("rbart") # Remove if previously ran bankrupt.R
+install.packages("rbart")
 library(rbart)
 library(energy)
 source("../qinsamp.R")

@@ -7,6 +7,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # Sets working direc
 
 ### Resources #############################
 remove.packages("rbart") # Make sure the existing rbart package is unloaded
+# Comment this out if package was already built
 setwd("../surv_rbart")
 # install.packages(devtools) # Make sure this is installed
 library(devtools)
@@ -15,7 +16,7 @@ library(rbart)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # Set working directory back again
 
 ### Data #############################
-file_name <- "../../Bankruptcy-Bart.csv" # Set correct file name
+file_name <- "Bankruptcy-Bart.csv" # Set correct file name
 df <- read.table(file_name, sep = ",", header = TRUE) # Read the file into a dataframe
 
 # Convert time values
@@ -40,8 +41,8 @@ boxplot(bm ~ status, data = df, outline = FALSE, xlab = "", names = c("Viable", 
 title("Book/Market")
 boxplot(cash_lt ~ status, data = df, outline = FALSE, xlab = "", names = c("Viable", "Bankrupt"), cex.axis = 1.3)
 title("Cash Balance/Total Liabilities")
-boxplot(curr_debt ~ status, data = df, outline = FALSE, xlab = "", names = c("Viable", "Bankrupt"), cex.axis = 1.3)
-title("Current Liabilities/Total Liabilities")
+boxplot(cash_debt ~ status, data = df, outline = FALSE, xlab = "", names = c("Viable", "Bankrupt"), cex.axis = 1.3)
+title("Cash Flow/Total Debt")
 boxplot(ps ~ status, data = df, outline = FALSE, xlab = "", names = c("Viable", "Bankrupt"), cex.axis = 1.3)
 title("Price/Sales")
 boxplot(lt_debt ~ status, data = df, outline = FALSE, xlab = "", names = c("Viable", "Bankrupt"), cex.axis = 1.3)
@@ -147,5 +148,6 @@ abline(h = bart_pred$smean[1], col = "black", lwd = 2) # Plot BART variance
 abline(h = quantile(bart_pred$sdraws,0.05), col = "black", lty = 2)
 abline(h = quantile(bart_pred$sdraws,0.95), col = "black", lty = 2)
 
-write.csv(heter_surv, "heter_surv.csv")
-write.csv(homo_surv, "homo_surv.csv")
+# I already wrote these, but feel free to overwrite.
+# write.csv(heter_surv, "heter_surv.csv")
+# write.csv(homo_surv, "homo_surv.csv")

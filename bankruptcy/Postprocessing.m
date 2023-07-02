@@ -49,19 +49,6 @@ for i = 1:8
     [test(i).h, test(i).p, test(i).ci, test(i).stats] = ttest2(unique(dataArray{ismember(dataArray.gvkey, gvkeyBankrupt), test(i).ratio}), unique(dataArray{~ismember(dataArray.gvkey, gvkeyBankrupt), test(i).ratio}), 'VarType', 'unequal');
 end
 
-%% Plot boxplots
-tiledlayout(2,4)
-ylimits = [-30 50; 0 3; 0 2; 0 6; 0 1; 0 1; -1 1; 0 1];
-titles = ["Price/Equity", "Book/Market", "Cash Balance/Total Liabilities", "Price/Sales", "Total Debt/Total Assets", "Long-term Debt/Total Liabilities", "Return on Equity", "Short-term Debt/Total Debt"];
-for i = 1:length(ratios)
-    nexttile
-    g = [repmat(1,length(unique(dataArray{ismember(dataArray.gvkey, gvkeyBankrupt), test(i).ratio})),1); repmat(2,length(unique(dataArray{~ismember(dataArray.gvkey, gvkeyBankrupt), test(i).ratio})),1)];
-    x = [unique(dataArray{ismember(dataArray.gvkey, gvkeyBankrupt), test(i).ratio}); unique(dataArray{~ismember(dataArray.gvkey, gvkeyBankrupt), test(i).ratio})];
-    boxplot(x, g, 'Symbol', '')
-    ylim(ylimits(i, :))
-    title(strcat(titles(i), num2str(test(i).p)))
-end
-
 %% Put data in a time-series structure
 panel(length(data(1).heter.t)) = struct();
 for t = 1:length(panel)

@@ -2,8 +2,10 @@
 # In this script I generate the results for the alcohol consumption example.
 # It produces figures for the exploratory analysis, quality metrics, H-evidence
 # and qq-plots.
-
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # Sets working directory to current file directory
 ### Resources #############################
+# remove.packages("rbart") # Remove if previously ran bankrupt.R
+install.packages("rbart")
 library(rbart)
 library(energy)
 source("../qinsamp.R")
