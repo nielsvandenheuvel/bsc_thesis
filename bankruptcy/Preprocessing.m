@@ -1,9 +1,17 @@
+%% Preamble
+% This script preprocesses the raw data from the bankruptcy dataset and the
+% finanical ratios. It starts of by formatting the data in struct and by
+% iterating some criteria refines the data. Note that this file is a toy
+% example, as the data used in here is only a small subsample of the whole
+% data used in the analysis. The initial script wrote the entire dataset
+% back to bankrutpcy/Bankruptcy-Bart.csv, which is used in the analysis.
+
 %% Helper functions
 iff = @(varargin) varargin{2*find([varargin{1:2:end}], 1, 'first')}();
 paren = @(x, varargin) x(varargin{:});
 
 %% Load bankruptcy data
-bankruptcyData = readtable("./Data/Raw/Florida-UCLA-LoPucki Bankruptcy Research Database 1-12-2023.csv");
+bankruptcyData = readtable("Florida-UCLA-LoPucki Bankruptcy Research Database 1-12-2023.csv");
 
 % Drop variables
 bankruptcyData(:, 1:71) = [];
@@ -14,8 +22,8 @@ bankruptcyData(:, 130:end) = [];
 bankruptcyData.YearFiled = year(bankruptcyData.DateFiled);
 bankruptcyData.DateFiled = [];
 
-%% Load financial ratios data
-ratiosData = readtable("./Data/Raw/WRDS_Financial_Ratios.csv");
+%% Load (subsample) financial ratios data
+ratiosData = readtable("subsamp.csv");
 
 %% Format data
 % Select variables
@@ -35,12 +43,12 @@ gvkey = unique(ratiosData{:, "gvkey"});
 gvkeyBankrupt = intersect(bankruptcyData.GvkeyBefore(bankruptcyData.YearFiled >= 2000), gvkey);
 gvkeyLive = setdiff(gvkey, gvkeyBankrupt);
 rng(0);
-gvkeySample = [randsample(gvkeyLive, 1000); gvkeyBankrupt];
+gvkeySample = [randsample(gvkeyLive, 500); gvkeyBankrupt];
 
 % Time plots for selected predictors.
-tiledlayout(4,2, 'TileSpacing', 'compact')
 ratios = ["pe_inc", "bm", "cash_lt", "ps", "debt_at", "lt_debt", "roe", "short_debt"];
 titles = ["Price/Equity", "Book/Market", "Cash Balance/Total Liabilities", "Price/Sales", "Total Debt/Total Assets", "Long-term Debt/Total Liabilities", "Return on Equity", "Short-term Debt/Total Debt"];
+tiledlayout(4,2, 'TileSpacing', 'compact')
 for i = 1:length(ratios)
     nexttile
     hold on
@@ -97,7 +105,7 @@ end
 % Only get rows that have more than 9 years of data or 4 years, if
 % bankrupt.
 filter = arrayfun(@(x) size(x.table, 1) >= 10 | (x.status == 1 & size(x.table, 1) >= 4), data);
-filteredData = data(filter, :);
+filteredData = data(filter);
 
 %% Missing data
 % Compute the missing fraction of observations for each variable.
@@ -113,7 +121,7 @@ dropMissingVariables = [dropMissingVariables, fracMissing.Properties.VariableNam
 
 % Get the bankrupt firms that have missing data at the year of bankruptcy
 missingBankruptFirms = arrayfun(@(i) iff(i.status == 1, sum(isnan(i.table{size(i.table, 1), ~ismember(i.table.Properties.VariableNames, dropMissingVariables)})), true, 0), filteredData) > 0;
-filteredData(missingBankruptFirms, :) = [];
+filteredData(missingBankruptFirms) = [];
 
 % Recalculate missing values
 variableLocations = find(~ismember(fracMissing.Properties.VariableNames, dropMissingVariables));
@@ -162,6 +170,3 @@ for i = 1:length(filteredData)
 end
 
 dataArray = dataArray(:, ~ismember(dataArray.Properties.VariableNames, dropMissingVariables));
-
-%% Write table back
-writetable(dataArray, "Bankruptcy-Bart.csv");

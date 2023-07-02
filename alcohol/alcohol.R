@@ -1,4 +1,7 @@
 ### Preabmle #############################
+# In this script I generate the results for the alcohol consumption example.
+# It produces figures for the exploratory analysis, quality metrics, H-evidence
+# and qq-plots.
 
 ### Resources #############################
 library(rbart)

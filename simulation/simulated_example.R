@@ -1,6 +1,7 @@
 ### Preabmle #############################
-
-  
+# This script provides a simulation example for the HBART methodology.
+# It produces evaluation and data plots for the thesis. The DGP is derived
+# from Pratola et al. (2020).
 ### Resources #############################
 library(rbart)
 library(energy)
@@ -14,7 +15,7 @@ workspace_save_path <- ""
 if (workspace_path == "") {
   ### Settings #############################
   # MCMC
-  nburn <- 1000 # Number of draws discarded for burn-in
+  nburn <- 1000 # Number of draws discarded
   niter <- 2000 # Number of iterations for the MCMC after burn-in
   nthreads <- 5 # Number of OpenMP threads to use in computation
   

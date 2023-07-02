@@ -39,3 +39,6 @@ Thumbs.db
 # R data #
 .RData
 .RHistory
+
+# Matlab temporary files #
+.asv

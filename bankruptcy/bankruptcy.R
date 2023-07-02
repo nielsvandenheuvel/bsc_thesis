@@ -1,8 +1,18 @@
 ### Preamble #############################
-
+# In this script I perform the main analysis for the extension of the thesis.
+# The data used here comes from Preprocessing.m and the output is analysed by
+# Postprocessing.m. This script also includes some boxplots and an H-evidence
+# plot.
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # Sets working directory to current file directory
 
 ### Resources #############################
+remove.packages("rbart") # Make sure the existing rbart package is unloaded
+setwd("../surv_rbart")
+# install.packages(devtools) # Make sure this is installed
+library(devtools)
+devtools::install() # Build and install the package
 library(rbart)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # Set working directory back again
 
 ### Data #############################
 file_name <- "../../Bankruptcy-Bart.csv" # Set correct file name
